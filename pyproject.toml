@@ -10,6 +10,7 @@ dependencies = [
     "chromadb>=1.0.17",
     "google-genai>=1.30.0",
     "pydantic-settings>=2.10.1",
+    "pypdf>=6.0.0",
     "python-dotenv>=1.1.1",
     "redis>=6.4.0",
     "sentence-transformers>=5.1.0",
