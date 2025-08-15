@@ -1,0 +1,23 @@
+[project]
+name = "core-ai-application"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chonkie>=1.1.2",
+    "chromadb>=1.0.17",
+    "google-genai>=1.30.0",
+    "pydantic-settings>=2.10.1",
+    "python-dotenv>=1.1.1",
+    "redis>=6.4.0",
+    "sentence-transformers>=5.1.0",
+    "sqlalchemy>=2.0.43",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "ruff>=0.12.9",
+]
