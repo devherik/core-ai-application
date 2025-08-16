@@ -35,7 +35,11 @@ class DataInjectionService:
             metadata = self.create_metadata(chunks)
             
             # Step 4: Store embeddings in the database
-            collection = self.database.create_collection("initial_data")
+            try:
+                collection = self.database.get_collection("initial_data")
+            except Exception as e:
+                print(f"Error occurred while retrieving collection: {e}")
+                collection = self.database.create_collection("initial_data")
             for chunk, embedding, meta in zip(chunks, embeddings, metadata):
                 unique_id = str(uuid.uuid4())
                 collection.add(
