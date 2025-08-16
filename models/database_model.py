@@ -1,16 +1,17 @@
 import chromadb
 from chromadb import Collection
+from chromadb.api import ClientAPI
 from typing import Optional
 
-class ChromaDBService:
-    _instance: Optional["ChromaDBService"] = None
+class DatabaseModel:
+    _instance: Optional["DatabaseModel"] = None
 
     def __new__(cls):
         if not cls._instance:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, client=None):
+    def __init__(self, client: Optional[ClientAPI] = None):
         if client is None:
             self.client = chromadb.PersistentClient(path=".chroma_db")
         else:
