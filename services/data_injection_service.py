@@ -97,3 +97,24 @@ class DataInjectionService:
             list: A list of metadata dictionaries for each chunk.
         """
         return [{"text": chunk, "length": len(chunk)} for chunk in chunks]
+    
+    def search_data(self, query: str, collection):
+        """
+        Search the database for relevant data based on the query.
+
+        Args:
+            query (str): The search query string.
+
+        Returns:
+            list: A list of documents that match the search criteria.
+        """
+        try:
+            query_embedding = self.model.encode(query, convert_to_tensor=True)
+            results = collection.query(
+                query_embeddings=query_embedding.tolist(),
+                n_results=5,  # Adjust the number of results as needed
+            )
+            return results
+        except Exception as e:
+            print(f"Error occurred while searching data: {e}")
+            return []
