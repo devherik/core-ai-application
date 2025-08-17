@@ -1,5 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from models.database_model import DatabaseModel
+from typing import Optional
 import uuid
 
 class DataInjectionService:
@@ -17,6 +18,12 @@ class DataInjectionService:
     - Parsing into Agno document format
     - Returning the Agno document
     """
+    _instance: Optional["DataInjectionService"] = None
+
+    def __new__(cls, database: DatabaseModel):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     def __init__(self, database: DatabaseModel) -> None:
         self.database = database
@@ -25,6 +32,8 @@ class DataInjectionService:
     def inject_data(self, data):
         # Implementation of data injection logic goes here.
         try:
+            if isinstance(data, list):
+                data = " ".join(data)
             # Step 1: Chunk the data
             chunks = self.chunk_data(data)
 
