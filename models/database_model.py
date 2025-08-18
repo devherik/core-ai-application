@@ -2,6 +2,7 @@ import chromadb
 from chromadb import Collection
 from chromadb.api import ClientAPI
 from typing import Optional
+from agno.vectordb.chroma.chromadb import ChromaDb
 
 class DatabaseModel:
     _instance: Optional["DatabaseModel"] = None
@@ -18,6 +19,7 @@ class DatabaseModel:
             self.client = client
 
     def create_collection(self, name: str) -> Collection:
+        self.vector_db = ChromaDb(persistent_client=True, path=".chroma_db", collection=name)
         return self.client.create_collection(name)
 
     def get_collection(self, name: str) -> Collection:
